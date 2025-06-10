@@ -6,6 +6,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Login from "./Login";
 import Cart from "./Cart";
+import logout from "./logout";
 import Register from "./Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";

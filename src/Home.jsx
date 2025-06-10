@@ -5,27 +5,27 @@ import { AppContext } from "./App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 export default function Home() {
-  const {cart,setCart} = useContext(AppContext)
+  const {cart,setCart,email} = useContext(AppContext)
   const products = [
     {
       id: 1,
       name: "Product 1",
       desc: "This is the description of the product",
-      price: 200000,
-      imgUrl: "https://picsum.photos/536/354",
+      price: 45,
+      imgUrl: "https://picsum.photos/id/1/300/300",
     },
     {
       id: 2,
       name: "Product 2",
       desc: "This is the description of the product",
-      price: 100000,
-      imgUrl: "https://picsum.photos/536/354",
+      price: 50,
+      imgUrl: "https://picsum.photos/id/2/300/300",
     },
     {
       id: 3,
       name: "Product 3",
       desc: "This is the description of the product",
-      price: 75000,
+      price: 75,
       imgUrl: "https://picsum.photos/id/3/300/300",
     },
   ];
@@ -37,6 +37,7 @@ export default function Home() {
       price: obj.price,
       desc: obj.desc,
       qty: 1,
+      email:email,
     });
     Navigate("/cart");
   };
