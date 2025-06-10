@@ -1,4 +1,4 @@
-import { useState, createContext} from 'react';
+import { useState, createContext, use} from 'react';
 import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import './App.css';
@@ -13,6 +13,7 @@ import Register from './Register.jsx';
 export const AppContext = createContext()
 function App() {
   const [user, setUser] = useState({});
+  const[users,SetUsers] = useState([]);
 
   return (
     <div>
