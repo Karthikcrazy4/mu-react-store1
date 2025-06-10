@@ -1,21 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import {usestate,createContext} from "react";
-import "./App.css";
-import Header from "./Header";
-import Footer from "./Footer";
-import Login from "./Login";
-import Register from "./Register";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-export const Appcontext = createContext();
+import { useState, createContext} from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+import './Footer.jsx';
+import './Header.jsx';
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
+import Home from './Home.jsx';
+import Login from './Login.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Register from './Register.jsx';
+export const AppContext = createContext()
 function App() {
+  const [user, setUser] = useState({});
+
   return (
     <div>
-      <App.context.Provider value={{user,setUser}}>
+      <AppContext.Provider value={{user, setUser}}>
       <BrowserRouter>
-        <Header name="mu-react-store" />
+        <Header name="Mu-React-Store" />
         <Routes>
           <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
@@ -24,8 +27,9 @@ function App() {
         </Routes>
         <Footer />
       </BrowserRouter>
-      </App.context.Provider>
+      </AppContext.Provider>
     </div>
   );
 }
+
 export default App;
