@@ -47,7 +47,7 @@ export default function Home() {
           <h2>{product.name}</h2>
           <p>{product.desc}</p>
           <h4>{product.price}</h4>
-          <p><button onClick={() => BuyNow(product)}>Add to Cart</button></p>
+          <p><button onClick={() => BuyNow(product)}>BuyNow</button></p>
         </div>
       ))}
     </div>
