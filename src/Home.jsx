@@ -19,7 +19,7 @@ export default function Home() {
       name: "Product 2",
       desc: "This is the description of the product",
       price: 100000,
-      imgUrl: "https://picsum.photos/536/354",
+      imgUrl: "https://images.unsplash.com/photo-1728443433557-3fc9e37b58c2?q=80&w=2473&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
       id: 3,
