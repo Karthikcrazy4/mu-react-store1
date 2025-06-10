@@ -4,26 +4,23 @@ import { useState } from "react";
 export default function Register() {
  const [user, setUser] = useState({});
  const clicked = () => {
-  console.log("Name: " + user.name);
-  console.log("Email: " + user.email);  
-  console.log("Password: " + user.pass);
+  console.log(user);
  };
-
-  // 
-  // const [count, setCount] = useState(0);
-  // const [counter, setCounter] = useState(0);
-  // const handleClick = () => {
-  //   alert("Hello World");
-  // };
-  // const updateCount = () => {
-  //   setCount(count + 1);
-  // };
-  // const Incrementcounter = () => {
-  //   setCounter(counter + 1);
-  // }
-  // const decrementCounter = () => {
-  //   setCounter(counter - 1);
-  // }
+ 
+  const [count, setCount] = useState(0);
+  const [counter, setCounter] = useState(0);
+  const handleClick = () => {
+    alert("Hello World");
+  };
+  const updateCount = () => {
+    setCount(count + 1);
+  };
+  const Incrementcounter = () => {
+    setCounter(counter + 1);
+  }
+  const decrementCounter = () => {
+    setCounter(counter - 1);
+  }
   return (
     <div>
       <h2>Register</h2>
@@ -53,21 +50,23 @@ export default function Register() {
       </p>
       <hr />
       <p>
-        <Link to="/login">Aready a member? Login Here...</Link>
+        <Link to="/login">Already a member? Login Here...</Link>
       </p>
-      <button onclick={clicked}>Submit</button>
+      <button onClick={clicked}>Submit</button>
       <hr />
-      // {/* <button onClick={handleClick}>Click</button>
-      // <hr />
-      // <p>
-      //   {count}<br></br>
-      //   <button onClick={updateCount}>Update Count</button>
-      // </p>
-      // <p>
-      //   {counter}<br></br>
-      //   <button onClick={Incrementcounter}>Incrementcount</button>
-      //   <button onClick={decrementCounter}>DecrementCount</button> */}
-      // </p>
+      <button onClick={handleClick}>Click</button>
+      <hr />
+      <p>
+        {count}
+        <br />
+        <button onClick={updateCount}>Update Count</button>
+      </p>
+      <p>
+        {counter}
+        <br />
+        <button onClick={Incrementcounter}>Incrementcount</button>
+        <button onClick={decrementCounter}>DecrementCount</button>
+      </p>
     </div>
   );
 }
