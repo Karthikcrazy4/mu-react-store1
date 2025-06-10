@@ -9,9 +9,9 @@ export default function Register() {
  
   const [count, setCount] = useState(0);
   const [counter, setCounter] = useState(0);
-  const handleClick = () => {
-    alert("Hello World");
-  };
+  // const handleClick = () => {
+  //   alert("Hello World");
+  // };
   const updateCount = () => {
     setCount(count + 1);
   };
