@@ -1,7 +1,12 @@
-
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Appcontext } from "./App";
+
 export default function Login() {
+  const [user, setUser] = useContext(Appcontext);
+  const handleSubmit = () => {
+    console.log(user);
+  };
   return (
     <div>
       <h2>Login Form</h2>
