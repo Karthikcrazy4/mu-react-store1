@@ -2,7 +2,7 @@ import React from "react";
 import { AppContext } from "./App";
 import { useContext } from "react";
 export default function Cart() {
-  const { cart,setCart } = useContext(AppContext);
+  const { cart, setCart, email } = useContext(AppContext);
   const increment = () => {
     setCart({ ...cart, qty: cart.qty + 1 });
   };
@@ -25,8 +25,7 @@ export default function Cart() {
       <h2>Order Value:{cart.price * cart.qty}</h2>
       <hr />
       <p>
-        <button>Place Order</button>
-        <button>Login to Order</button>
+        {email ? <button>Place Order</button> : <button>Login to Order</button>}
       </p>
     </div>
   );
