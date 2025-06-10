@@ -1,7 +1,9 @@
-
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./Home.css"
+import { Appcontext } from "./App";
+import { useNavigate } from "react-router-dom";
 export default function Home() {
+  const [cart, setCart] = useContext(Appcontext);
   const products = [
     {
       id: 1,
@@ -25,16 +27,27 @@ export default function Home() {
       imgUrl: "https://picsum.photos/id/3/300/300",
     },
   ];
+  const navigate = useNavigate();
+  const BuyNow = (obj) => {
+    setCart({
+      id: obj.id,
+      name: obj.name,
+      desc: obj.desc,
+      price: obj.price,
+      qty: 1,
+    });
+    navigate("/Cart");
+  };
 
   return (
     <div className="App-Home-Row">
       {products.map((product) => (
-        <div>
+        <div key={product.id}>
           <img src={product.imgUrl} alt={product.name} />
           <h2>{product.name}</h2>
           <p>{product.desc}</p>
           <h4>{product.price}</h4>
-          <p><button>Add to Cart</button></p>
+          <p><button onClick={() => BuyNow(product)}>Add to Cart</button></p>
         </div>
       ))}
     </div>
