@@ -1,11 +1,7 @@
 import React from "react";
 import "./Header.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 export default function Header({ name }) {
-  const navigate = useNavigate();
-  const handleCartClick = () => {
-    navigate("/buynow");
-  };
   return (
     <div className="App-Header-Row" style={{ backgroundColor: "pink" }}>
       <div>
@@ -17,14 +13,10 @@ export default function Header({ name }) {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/cart">Cart</Link>
           </li>
           <li>
-            <button
-              onClick={handleCartClick}
-            >
-              <h1>cart</h1>
-            </button>
+            <Link to="/login">Login</Link>
           </li>
         </ul>
       </div>
