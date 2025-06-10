@@ -1,22 +1,33 @@
-import React, { useContext } from 'react';
-import { Appcontext } from './App';
-
+import React from "react";
+import { AppContext } from "./App";
+import { useContext } from "react";
 export default function Cart() {
-  // Render cart details or a placeholder
+  const { cart,setCart } = useContext(AppContext);
+  const increment = () => {
+    setCart({ ...cart, qty: cart.qty + 1 });
+  };
+
+  const decrement = () => {
+    cart.qty > 0 && setCart({ ...cart, qty: cart.qty - 1 });
+  };
   return (
     <div>
-      <h2>Cart</h2>
-      {/* Render cart details here */}
-      {cart ? (
-        <div>
-          <p>Name: {cart.name}</p>
-          <p>Description: {cart.desc}</p>
-          <p>Price: {cart.price}</p>
-          <p>Quantity: {cart.qty}</p>
-        </div>
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
+      <h2>My Cart</h2>
+      <h3>{cart.name}</h3>
+      <p>{cart.desc}</p>
+      <h3>Price:{cart.price}</h3>
+      <p>
+        <button onClick={decrement}>-</button>
+        {cart.qty}
+        <button onClick={increment}>+</button>
+      </p>
+      <hr />
+      <h2>Order Value:{cart.price * cart.qty}</h2>
+      <hr />
+      <p>
+        <button>Place Order</button>
+        <button>Login to Order</button>
+      </p>
     </div>
   );
 }
