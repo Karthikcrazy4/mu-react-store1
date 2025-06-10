@@ -22,12 +22,6 @@ export default function Header({ name }) {
           <li>
             <button
               onClick={handleCartClick}
-              style={{
-                background: "none",
-                border: "none",
-                padding: 0,
-                cursor: "pointer",
-              }}
             >
               <h1>cart</h1>
             </button>
