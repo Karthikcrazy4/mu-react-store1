@@ -1,13 +1,23 @@
-import React, { useEffect } from 'react' 
-import { usestate } from 'react'
-const [count,SetCount] = useState(0);
-  const fetchproducts = () => {
-    alert("Fetching products from API");
+
+import React, { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+export default function Product() {
+  const [products, setProducts] = useState([]);
+    
+  const fetchProducts = async () => {
+    const url = "https://gcet-node-app.vercel.app/products/all";
+    const res = await axios.get(url);
+    setProducts(res.data);
   };
-  useeffect(() => {fetchproducts()},[]) 
-  return(
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+  return (
     <div>
-      {count}
-      <button onClick={() => SetCount(count + 1)}>Update count</button>
+      {products.map((product) => (
+        <li>{product.name}</li>
+      ))}
     </div>
-  )
+  );
+}
