@@ -11,6 +11,7 @@ import Logout from "./Logout";
 import Order from "./Order";
 import Register from "./Register";
 import Product from "./Product";
+import Test from "./Test";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 export const AppContext = createContext();
@@ -28,6 +29,7 @@ function App() {
           <Header name="mu-react-store" />
           <Routes>
             <Route index element={<Product />} />
+            <Route index element={<Test />} />
             <Route path="/" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
