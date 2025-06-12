@@ -1,4 +1,3 @@
-
 import { useState, createContext } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -10,8 +9,8 @@ import Cart from "./Cart";
 import Logout from "./Logout";
 import Order from "./Order";
 import Register from "./Register";
-import Product from "./Product";
 import Test from "./Test";
+import Product from "./Product";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 export const AppContext = createContext();
@@ -28,9 +27,8 @@ function App() {
         <BrowserRouter>
           <Header name="mu-react-store" />
           <Routes>
-            <Route index element={<Product />} />
             <Route index element={<Test />} />
-            <Route path="/" element={<Product />} />
+            <Route path="/" element={<Test />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
