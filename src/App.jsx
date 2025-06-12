@@ -10,7 +10,7 @@ import Logout from "./Logout";
 import Order from "./Order";
 import Register from "./Register";
 import Test from "./Test";
-import Product from "./Product";
+import products from "./products";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 export const AppContext = createContext();
