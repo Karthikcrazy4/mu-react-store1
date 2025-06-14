@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AppContext } from "./App";
 import { useRef } from "react";
+import axios from 'axios';
 export default function Register() {
   const [user, setUser] = useState({});
   const Navigate = useNavigate();
@@ -10,14 +11,17 @@ export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
   const passRef = useRef();
-  const handleSubmit = () => {
+  const API = import.meta.env.VITE_API_URL
+  const handleSubmit = async () => {
     const userObj = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       pass: passRef.current.value,
     };
     // setUsers([...users, user]);
-    setUsers([...users, userObj]);
+    //setUsers([...users, userObj]);
+    const url = ${API}/api/users/register
+    await axios.post(url,userObj)
     Navigate("/login");
   };
   return (
