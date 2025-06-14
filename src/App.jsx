@@ -10,6 +10,7 @@ import Logout from "./Logout";
 import Order from "./Order";
 import Register from "./Register";
 import Test from "./Test";
+import axios from "axios";
 import Products from "./Products";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
@@ -27,8 +28,8 @@ function App() {
         <BrowserRouter>
           <Header name="mu-react-store" />
           <Routes>
-            <Route index element={<Test />} />
-            <Route path="/" element={<Test />} />
+            <Route index element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
