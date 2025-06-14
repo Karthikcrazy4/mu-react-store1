@@ -20,7 +20,7 @@ export default function Register() {
     };
     // setUsers([...users, user]);
     //setUsers([...users, userObj]);
-    const url = ${API}/api/users/register
+    const url = `${API}/api/users/register`
     await axios.post(url,userObj)
     Navigate("/login");
   };
