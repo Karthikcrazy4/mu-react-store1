@@ -40,3 +40,11 @@
   font-size: 1.25rem;
   color: var(--text);
  }
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-weight: 500;
+}

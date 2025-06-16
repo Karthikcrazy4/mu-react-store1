@@ -6,12 +6,12 @@ import Footer from "./Footer";
 import Home from "./Home";
 import Cart from "./Cart";
 import Login from "./Login";
-import Order from "./Order";
 import Logout from "./Logout";
+import Order from "./Order";
 import Register from "./Register";
 import "./App.css";
 
-// export your AppContext once:
+// AppContext provides global state for users, cart, email, and orders
 export const AppContext = createContext({
   users: [],
   setUsers: () => {},
@@ -27,22 +27,27 @@ function AppContent() {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [cart, setCart] = useState({});
-  const [email, setEmail] = useState();
+  const [email, setEmail] = useState(null);
 
   return (
     <AppContext.Provider
       value={{ users, setUsers, cart, setCart, email, setEmail, orders, setOrders }}
     >
       <BrowserRouter>
-        <Header name="mu-react-store" />
+        {/* Header with animated store name */}
+        <Header name="Easypaz" />
+
+        {/* Define application routes */}
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/Cart" element={<Cart />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Logout" element={<Logout />} />
-          <Route path="/Order" element={<Order />} />
-          <Route path="/Register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
+
+        {/* Footer fixed at bottom */}
         <Footer />
       </BrowserRouter>
     </AppContext.Provider>

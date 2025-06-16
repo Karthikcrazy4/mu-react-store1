@@ -1,0 +1,24 @@
+/* src/CircularText.css */
+.circular-text {
+position: relative;
+display: block;
+width: 150px;
+height: 150px;
+margin: 0;
+}
+
+.circular-text span {
+position: absolute;
+left: 50%;
+top: 50%;
+transform-origin: 0 0;
+white-space: pre;
+font-size: 1rem;
+color: var(--text);
+}
+
+/* Optional: adjust size if using 'circular-title' class */
+.circular-title {
+width: 150px;
+height: 150px;
+}

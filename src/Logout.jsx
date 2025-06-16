@@ -10,7 +10,6 @@ export default function Logout() {
     // clear auth & cart
     setEmail(null);
     setCart({});
-    // send ’em back to login
     navigate("/login");
   }, [setEmail, setCart, navigate]);
 
