@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider, useTheme } from "./ThemeProvider";
-import { AppContext } from "./App";
+import { ThemeProvider } from "./ThemeProvider";
 import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
@@ -12,23 +11,28 @@ import Order from "./Order";
 import Register from "./Register";
 import "./App.css";
 
+// export your AppContext once:
+export const AppContext = createContext({
+  users: [],
+  setUsers: () => {},
+  cart: {},
+  setCart: () => {},
+  email: null,
+  setEmail: () => {},
+  orders: [],
+  setOrders: () => {},
+});
+
 function AppContent() {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]);
   const [cart, setCart] = useState({});
   const [email, setEmail] = useState();
-  const { theme, setTheme } = useTheme();
-
-  const toggle = () =>
-    setTheme(theme === "dark" ? "light" : "dark");
 
   return (
     <AppContext.Provider
       value={{ users, setUsers, cart, setCart, email, setEmail, orders, setOrders }}
     >
-      <button className="theme-toggle" onClick={toggle}>
-        {theme === "dark" ? "🌞 Light Mode" : "🌙 Dark Mode"}
-      </button>
       <BrowserRouter>
         <Header name="mu-react-store" />
         <Routes>

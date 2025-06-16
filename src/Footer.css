@@ -1,4 +1,17 @@
-.App-Footer-Row{
-    background-color: silver;
-    padding: 10px;
+/* src/Footer.css */
+.footer {
+  background: var(--header-bg);
+  color: var(--text);
+  text-align: center;
+  padding: 1rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
 }
+
+/* avoid content being hidden under the footer */
+body {
+  padding-bottom: 4rem;
+}
+    
