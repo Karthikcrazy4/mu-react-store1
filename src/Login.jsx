@@ -9,7 +9,7 @@ export default function Login() {
   const [user, setUser] = useState({ email: "", pass: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { setEmail } = useContext(AppContext);
+  const { setEmail, email } = useContext(AppContext);
   const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
@@ -17,7 +17,7 @@ export default function Login() {
     setError("");
     try {
       const { data } = await axios.post(`${API}/api/users/login`, user);
-      if (!data || !data.email) throw new Error();
+      if (!data?.email) throw new Error();
       setEmail(data.email);
       navigate("/");
     } catch {
@@ -27,9 +27,19 @@ export default function Login() {
 
   return (
     <div className="login-container">
+      {/* Home link is disabled until you’re logged in */}
+      {email ? (
+        <Link to="/" className="home-link">
+          ← Home
+        </Link>
+      ) : (
+        <span className="home-link disabled">← Home</span>
+      )}
+
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         {error && <div className="error-msg">{error}</div>}
+
         <label>
           Email
           <input
@@ -40,6 +50,7 @@ export default function Login() {
             className="input-field"
           />
         </label>
+
         <label>
           Password
           <input
@@ -50,9 +61,11 @@ export default function Login() {
             className="input-field"
           />
         </label>
+
         <button type="submit" className="submit-btn">
           Log In
         </button>
+
         <p className="register-link">
           Don’t have an account? <Link to="/register">Sign up</Link>
         </p>

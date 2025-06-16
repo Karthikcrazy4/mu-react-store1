@@ -1,63 +1,80 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
 import { AppContext } from "./App";
-import { useRef } from "react";
-import axios from 'axios';
+import axios from "axios";
+import "./Register.css";
+
 export default function Register() {
-  const [user, setUser] = useState({});
-  const Navigate = useNavigate();
-  const { users, setUsers } = useContext(AppContext);
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const passRef = useRef();
-  const API = import.meta.env.VITE_API_URL
-  const handleSubmit = async () => {
-    const userObj = {
-      name: nameRef.current.value,
-      email: emailRef.current.value,
-      pass: passRef.current.value,
-    };
-    // setUsers([...users, user]);
-    //setUsers([...users, userObj]);
-    const url = `${API}/api/users/register`
-    await axios.post(url,userObj)
-    Navigate("/login");
+  const [user, setUser] = useState({ name: "", email: "", pass: "" });
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { setUsers } = useContext(AppContext);
+  const API = import.meta.env.VITE_API_URL;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const { data } = await axios.post(
+        `${API}/api/users/register`,
+        user
+      );
+      if (!data) throw new Error();
+      setUsers((prev) => [...prev, user]);  // optional
+      navigate("/login");
+    } catch {
+      setError("❌ Registration failed");
+    }
   };
+
   return (
-    <div>
-      <h2>Register</h2>
-      <p>
-        <input
-          type="text"
-          placeholder="Enter Name"
-          ref={nameRef}
-          // onChange={(e) => setUser({ ...user, name: e.target.value })}
-        />
-      </p>
-      <p>
-        <input
-          type="text"
-          ref={emailRef}
-          // onChange={(e) => setUser({ ...user, email: e.target.value })}
-          placeholder="Enter Email Address"
-        />
-      </p>
-      <p>
-        <input
-          type="password"
-          ref={passRef}
-          // onChange={(e) => setUser({ ...user, pass: e.target.value })}
-          placeholder="New Password"
-        />
-      </p>
-      <p>
-        <button onClick={handleSubmit}>Submit</button>
-      </p>
-      <hr />
-      <p>
-        <Link to="/login">Aready a member? Login Here...</Link>
-      </p>
+    <div className="register-container">
+      <form className="register-form" onSubmit={handleSubmit}>
+        <h2>Register</h2>
+        {error && <div className="error-msg">{error}</div>}
+        <label>
+          Name
+          <input
+            type="text"
+            value={user.name}
+            onChange={(e) =>
+              setUser({ ...user, name: e.target.value })
+            }
+            required
+            className="input-field"
+          />
+        </label>
+        <label>
+          Email
+          <input
+            type="email"
+            value={user.email}
+            onChange={(e) =>
+              setUser({ ...user, email: e.target.value })
+            }
+            required
+            className="input-field"
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={user.pass}
+            onChange={(e) =>
+              setUser({ ...user, pass: e.target.value })
+            }
+            required
+            className="input-field"
+          />
+        </label>
+        <button type="submit" className="submit-btn">
+          Sign Up
+        </button>
+        <p className="login-link">
+          Already a member? <Link to="/login">Log in</Link>
+        </p>
+      </form>
     </div>
   );
 }
