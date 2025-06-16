@@ -7,6 +7,7 @@ import Home from "./Home";
 import Cart from "./Cart";
 import Login from "./Login";
 import Order from "./Order";
+import Logout from "./Logout";
 import Register from "./Register";
 import "./App.css";
 
@@ -38,6 +39,7 @@ function AppContent() {
           <Route index element={<Home />} />
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/Logout" element={<Logout />} />
           <Route path="/Order" element={<Order />} />
           <Route path="/Register" element={<Register />} />
         </Routes>
