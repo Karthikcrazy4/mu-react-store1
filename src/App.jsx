@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import Home from "./Home";
 import Cart from "./Cart";
 import Login from "./Login";
-import Logout from "./Logout";
+import Logout from "./Logout";  
 import Order from "./Order";
 import Register from "./Register";
 import "./App.css";
