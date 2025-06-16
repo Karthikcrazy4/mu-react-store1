@@ -1,54 +1,47 @@
-
-import React from "react";
-import { AppContext } from "./App";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AppContext } from "./App";
+import "./Cart.css";
+
 export default function Cart() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const { cart, setCart, email, orders, setOrders } = useContext(AppContext);
-  const increment = () => {
-    setCart({ ...cart, qty: cart.qty + 1 });
-  };
 
-  const decrement = () => {
-    cart.qty > 0 && setCart({ ...cart, qty: cart.qty - 1 });
-  };
-
-  const handleLogin = () => {
-    Navigate("/login");
-  };
-
+  const increment = () => setCart({ ...cart, qty: cart.qty + 1 });
+  const decrement = () => cart.qty > 0 && setCart({ ...cart, qty: cart.qty - 1 });
+  const handleLogin = () => navigate("/login");
   const placeOrder = () => {
     setOrders([...orders, cart]);
     setCart({});
-    Navigate("/order");
+    navigate("/order");
   };
+
   return (
-    <div>
-      <h2>My Cart</h2>
+    <div className="cart-container">
+      <h2 className="cart-title">My Cart</h2>
       {Object.keys(cart).length > 0 ? (
         <>
-          <h3>{cart.name}</h3>
-          <p>{cart.desc}</p>
-          <h3>Price:{cart.price}</h3>
-          <p>
-            <button onClick={decrement}>-</button>
-            {cart.qty}
-            <button onClick={increment}>+</button>
-          </p>
+          <h3 className="cart-item-name">{cart.name}</h3>
+          <p className="cart-desc">{cart.desc}</p>
+          <h3 className="cart-price">Price: ₹{cart.price}</h3>
+          <div className="qty-controls">
+            <button onClick={decrement}>–</button>
+            <span>{cart.qty}</span>
+            <button onClick={increment}>＋</button>
+          </div>
           <hr />
-          <h2>Order Value:{cart.price * cart.qty}</h2>
+          <h2 className="cart-total">Order Value: ₹{cart.price * cart.qty}</h2>
           <hr />
-          <p>
+          <div className="cart-actions">
             {email ? (
               <button onClick={placeOrder}>Place Order</button>
             ) : (
               <button onClick={handleLogin}>Login to Order</button>
             )}
-          </p>
+          </div>
         </>
       ) : (
-        <h3>Your cart is empty</h3>
+        <h3 className="cart-empty">Your cart is empty</h3>
       )}
     </div>
   );
