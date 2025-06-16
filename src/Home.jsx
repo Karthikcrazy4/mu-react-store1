@@ -1,10 +1,12 @@
-import React from "react";
-import "./Home.css";
+import React, { useContext } from "react";
 import { AppContext } from "./App";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
+
 export default function Home() {
-  const {cart,setCart,email} = useContext(AppContext)
+  const { cart, setCart, email } = useContext(AppContext);
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
@@ -28,29 +30,28 @@ export default function Home() {
       imgUrl: "https://picsum.photos/id/3/300/300",
     },
   ];
-  const Navigate = useNavigate();
-  const buyNow = (obj) => {
+
+  const buyNow = (item) => {
     setCart({
-      id: obj.id,
-      name: obj.name,
-      price: obj.price,
-      desc: obj.desc,
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      desc: item.desc,
       qty: 1,
-      email:email,
+      email: email,
     });
-    Navigate("/cart");
+    navigate("/cart");
   };
+
   return (
-    <div className="App-Home-Row">
+    <div className="home-container">
       {products.map((product) => (
-        <div>
-          <img src={product.imgUrl} alt={product.name} />
-          <h2>{product.name}</h2>
-          <p>{product.desc}</p>
-          <h4>{product.price}</h4>
-          <p>
-            <button onClick={() => buyNow(product)}>Buy now</button>
-          </p>
+        <div className="product-card" key={product.id}>
+          <img src={product.imgUrl} alt={product.name} className="product-img" />
+          <h2 className="product-title">{product.name}</h2>
+          <p className="product-desc">{product.desc}</p>
+          <h4 className="product-price">₹{product.price}</h4>
+          <button className="buy-btn" onClick={() => buyNow(product)}>Buy Now</button>
         </div>
       ))}
     </div>
