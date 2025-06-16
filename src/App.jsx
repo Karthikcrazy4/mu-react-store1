@@ -37,11 +37,11 @@ function AppContent() {
         <Header name="mu-react-store" />
         <Routes>
           <Route index element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Logout" element={<Logout />} />
+          <Route path="/Order" element={<Order />} />
+          <Route path="/Register" element={<Register />} />
         </Routes>
         <Footer />
       </BrowserRouter>
