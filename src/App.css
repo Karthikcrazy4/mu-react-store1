@@ -1,0 +1,39 @@
+/* theme variables */
+:root.light {
+  --bg: #ffffff;
+  --text: #111111;
+  --accent: #007bff;
+}
+:root.dark {
+  --bg: #121212;
+  --text: #eeeeee;
+  --accent: #66b2ff;
+}
+
+/* global resets */
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s, color 0.3s;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--text);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
