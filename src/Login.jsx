@@ -1,9 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
 import axios from "axios";
 import "./Login.css";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+} from "firebase/auth";
 import { app } from "./firebase";
 
 const auth = getAuth(app);
@@ -15,6 +20,20 @@ export default function Login() {
   const navigate = useNavigate();
   const { setEmail } = useContext(AppContext);
   const API = import.meta.env.VITE_API_URL;
+
+  // Handle redirect result (for mobile redirect flow)
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result && result.user) {
+          setEmail(result.user.email);
+          navigate("/");
+        }
+      })
+      .catch(() => {
+        // silent catch
+      });
+  }, [navigate, setEmail]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,16 +49,10 @@ export default function Login() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      setError("");
-      const result = await signInWithPopup(auth, provider);
-      const profile = result.user;
-      setEmail(profile.email);
-      navigate("/");
-    } catch {
-      setError("❌ Google sign-in failed");
-    }
+  const handleGoogleSignIn = () => {
+    setError("");
+    // redirect instead of popup to avoid mobile popup issues
+    signInWithRedirect(auth, provider);
   };
 
   return (
