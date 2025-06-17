@@ -10,7 +10,7 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
 export default function Login() {
-  const [user, setUser] = useState({ email: "", pass: "" });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { setEmail } = useContext(AppContext);
@@ -18,10 +18,11 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     try {
-      const { data } = await axios.post(`${API}/api/users/login`, user);
-      if (!data?.email) throw new Error();
+      setError("");
+      const response = await axios.post(`${API}/api/users/login`, credentials);
+      const { data } = response;
+      if (!data?.email) throw new Error("Invalid credentials");
       setEmail(data.email);
       navigate("/");
     } catch {
@@ -30,8 +31,8 @@ export default function Login() {
   };
 
   const handleGoogleSignIn = async () => {
-    setError("");
     try {
+      setError("");
       const result = await signInWithPopup(auth, provider);
       const profile = result.user;
       setEmail(profile.email);
@@ -47,7 +48,6 @@ export default function Login() {
         <h2>Log in to your account</h2>
         <p className="subtext">Enter your email and password to sign in</p>
 
-        {/* OAuth button styled like create-account screen */}
         <button
           type="button"
           className="oauth-btn google-btn"
@@ -66,19 +66,29 @@ export default function Login() {
         <form className="login-form" onSubmit={handleSubmit}>
           <input
             type="email"
+            name="email"
             placeholder="Email"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={credentials.email}
+            onChange={(e) =>
+              setCredentials({ ...credentials, email: e.target.value })
+            }
             required
             className="input-field"
+            autoComplete="username"
+            autoCapitalize="none"
+            autoCorrect="off"
           />
           <input
             type="password"
+            name="password"
             placeholder="Password"
-            value={user.pass}
-            onChange={(e) => setUser({ ...user, pass: e.target.value })}
+            value={credentials.password}
+            onChange={(e) =>
+              setCredentials({ ...credentials, password: e.target.value })
+            }
             required
             className="input-field"
+            autoComplete="current-password"
           />
           <button type="submit" className="submit-btn">
             Log In
