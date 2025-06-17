@@ -1,37 +1,72 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--header-bg);
-  padding: 0.1rem 0.1rem;      /* tighter top/bottom & sides */
-  margin-bottom: 0;          /* remove extra bottom gap */
+.header-main {
+  background-color: #131921;
+  color: white;
+  font-family: Arial, sans-serif;
 }
 
-.header-controls {
+.top-nav {
   display: flex;
   align-items: center;
-  gap: 0.75rem;              /* less space between nav & toggle */
+  padding: 10px 20px;
+  gap: 1rem;
 }
 
-.nav {
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff9900;
+}
+
+.location {
+  font-size: 0.8rem;
+}
+
+.search-bar {
   display: flex;
-  gap: 0.5rem;               /* tighter link grouping */
+  flex: 1;
+  max-width: 600px;
 }
 
-.nav-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  text-decoration: none;
-  color: var(--nav-link);
-  font-weight: 500;
-  padding: 0.25rem 0.5rem;    /* optional: clickable padding */
+.search-category {
+  padding: 0.5rem;
+  border: none;
 }
 
-.theme-btn {
+.search-bar input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+}
+
+.search-btn {
+  background-color: #febd69;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.language, .account, .orders, .cart {
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.theme-toggle {
   background: none;
   border: none;
+  font-size: 1.2rem;
   cursor: pointer;
-  font-size: 1.1rem;         /* slightly smaller icon */
-  color: var(--text);
+  color: white;
+}
+
+.bottom-nav {
+  background-color: #232f3e;
+  padding: 10px 20px;
+  display: flex;
+  gap: 1rem;
+}
+
+.bottom-nav .nav-link {
+  color: #fff;
+  font-size: 0.9rem;
+  text-decoration: none;
 }

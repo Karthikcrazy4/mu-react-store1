@@ -1,29 +1,26 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "./App";
 import axios from "axios";
 import "./Register.css";
-import { getAuth } from "firebase/auth";
-import { app } from "./firebase";
-const auth = getAuth(app);
 
 export default function Register() {
-  const [user, setUser] = useState({ name: "", email: "", pass: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { setUsers } = useContext(AppContext);
   const API = import.meta.env.VITE_API_URL;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      const { data } = await axios.post(
-        `${API}/api/users/register`,
-        user
-      );
-      if (!data) throw new Error();
-      setUsers((prev) => [...prev, user]);  // optional
+      // send exactly { name, email, password }
+      const { data } = await axios.post(`${API}/api/users/register`, form);
+      if (!data?.email) throw new Error();
       navigate("/login");
     } catch {
       setError("❌ Registration failed");
@@ -35,45 +32,49 @@ export default function Register() {
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Register</h2>
         {error && <div className="error-msg">{error}</div>}
+
         <label>
           Name
           <input
+            name="name"
             type="text"
-            value={user.name}
-            onChange={(e) =>
-              setUser({ ...user, name: e.target.value })
-            }
+            value={form.name}
+            onChange={handleChange}
             required
             className="input-field"
           />
         </label>
+
         <label>
           Email
           <input
+            name="email"
             type="email"
-            value={user.email}
-            onChange={(e) =>
-              setUser({ ...user, email: e.target.value })
-            }
+            value={form.email}
+            onChange={handleChange}
             required
             className="input-field"
+            autoComplete="username"
           />
         </label>
+
         <label>
           Password
           <input
+            name="password"
             type="password"
-            value={user.pass}
-            onChange={(e) =>
-              setUser({ ...user, pass: e.target.value })
-            }
+            value={form.password}
+            onChange={handleChange}
             required
             className="input-field"
+            autoComplete="new-password"
           />
         </label>
+
         <button type="submit" className="submit-btn">
           Sign Up
         </button>
+
         <p className="login-link">
           Already a member? <Link to="/login">Log in</Link>
         </p>

@@ -6,6 +6,7 @@ import "./Login.css";
 import {
   getAuth,
   GoogleAuthProvider,
+  signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
 } from "firebase/auth";
@@ -21,27 +22,24 @@ export default function Login() {
   const { setEmail } = useContext(AppContext);
   const API = import.meta.env.VITE_API_URL;
 
-  // Handle redirect result (for mobile redirect flow)
+  // Handle redirect flow (mobile fallback)
   useEffect(() => {
     getRedirectResult(auth)
       .then((result) => {
-        if (result && result.user) {
+        if (result?.user) {
           setEmail(result.user.email);
           navigate("/");
         }
       })
-      .catch(() => {
-        // silent catch
-      });
+      .catch(() => {});
   }, [navigate, setEmail]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError("");
-      const response = await axios.post(`${API}/api/users/login`, credentials);
-      const { data } = response;
-      if (!data?.email) throw new Error("Invalid credentials");
+      const { data } = await axios.post(`${API}/api/users/login`, credentials);
+      if (!data?.email) throw new Error();
       setEmail(data.email);
       navigate("/");
     } catch {
@@ -49,10 +47,19 @@ export default function Login() {
     }
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = async () => {
     setError("");
-    // redirect instead of popup to avoid mobile popup issues
-    signInWithRedirect(auth, provider);
+    try {
+      // Try popup first
+      const result = await signInWithPopup(auth, provider);
+      if (result?.user) {
+        setEmail(result.user.email);
+        navigate("/");
+      }
+    } catch {
+      // Popup failed (mobile/blocked), fallback to redirect
+      signInWithRedirect(auth, provider);
+    }
   };
 
   return (
@@ -82,9 +89,7 @@ export default function Login() {
             name="email"
             placeholder="Email"
             value={credentials.email}
-            onChange={(e) =>
-              setCredentials({ ...credentials, email: e.target.value })
-            }
+            onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
             required
             className="input-field"
             autoComplete="username"
@@ -96,9 +101,7 @@ export default function Login() {
             name="password"
             placeholder="Password"
             value={credentials.password}
-            onChange={(e) =>
-              setCredentials({ ...credentials, password: e.target.value })
-            }
+            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
             required
             className="input-field"
             autoComplete="current-password"
