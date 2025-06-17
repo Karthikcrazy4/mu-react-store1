@@ -1,15 +1,19 @@
-// src/Login.jsx
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
 import axios from "axios";
 import "./Login.css";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { app } from "./firebase";
+
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
 export default function Login() {
   const [user, setUser] = useState({ email: "", pass: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { setEmail, email } = useContext(AppContext);
+  const { setEmail } = useContext(AppContext);
   const API = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
@@ -25,51 +29,68 @@ export default function Login() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    setError("");
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const profile = result.user;
+      setEmail(profile.email);
+      navigate("/");
+    } catch {
+      setError("❌ Google sign-in failed");
+    }
+  };
+
   return (
     <div className="login-container">
-      {/* Home link is disabled until you’re logged in */}
-      {email ? (
-        <Link to="/" className="home-link">
-          ← Home
-        </Link>
-      ) : (
-        <span className="home-link disabled">← Home</span>
-      )}
+      <div className="login-card">
+        <h2>Log in to your account</h2>
+        <p className="subtext">Enter your email and password to sign in</p>
 
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        {error && <div className="error-msg">{error}</div>}
+        {/* OAuth button styled like create-account screen */}
+        <button
+          type="button"
+          className="oauth-btn google-btn"
+          onClick={handleGoogleSignIn}
+        >
+          <img
+            src="https://developers.google.com/identity/images/g-logo.png"
+            alt="Google logo"
+            className="icon"
+          />
+          Google
+        </button>
 
-        <label>
-          Email
+        <div className="divider"><span>OR CONTINUE WITH</span></div>
+
+        <form className="login-form" onSubmit={handleSubmit}>
           <input
             type="email"
+            placeholder="Email"
             value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             required
             className="input-field"
           />
-        </label>
-
-        <label>
-          Password
           <input
             type="password"
+            placeholder="Password"
             value={user.pass}
             onChange={(e) => setUser({ ...user, pass: e.target.value })}
             required
             className="input-field"
           />
-        </label>
-
-        <button type="submit" className="submit-btn">
-          Log In
-        </button>
+          <button type="submit" className="submit-btn">
+            Log In
+          </button>
+        </form>
 
         <p className="register-link">
           Don’t have an account? <Link to="/register">Sign up</Link>
         </p>
-      </form>
+
+        {error && <div className="error-msg">{error}</div>}
+      </div>
     </div>
   );
 }

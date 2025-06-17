@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "./App";
 import axios from "axios";
 import "./Register.css";
+import { getAuth } from "firebase/auth";
+import { app } from "./firebase";
+const auth = getAuth(app);
 
 export default function Register() {
   const [user, setUser] = useState({ name: "", email: "", pass: "" });

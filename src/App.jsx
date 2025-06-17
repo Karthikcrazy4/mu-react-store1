@@ -10,6 +10,10 @@ import Logout from "./Logout";
 import Order from "./Order";
 import Register from "./Register";
 import "./App.css";
+import { getAuth } from "firebase/auth";
+import { app } from "./firebase";
+const auth = getAuth(app);
+
 
 // AppContext provides global state for users, cart, email, and orders
 export const AppContext = createContext({

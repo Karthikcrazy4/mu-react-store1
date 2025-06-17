@@ -3,43 +3,21 @@
   justify-content: space-between;
   align-items: center;
   background: var(--header-bg);
-  padding: 0.75rem 2rem;
+  padding: 0.1rem 0.1rem;      /* tighter top/bottom & sides */
+  margin-bottom: 0;          /* remove extra bottom gap */
 }
 
-/* Logo styling */
-.logo {
-  margin: 0;
-  color: var(--text);
-  font-size: 1.5rem;
-}
-
-/* Container for nav + toggle */
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.75rem;              /* less space between nav & toggle */
 }
 
-/* Nav links */
 .nav {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;               /* tighter link grouping */
 }
 
-.nav a {
-  text-decoration: none;
-  color: var(--nav-link);
-  font-weight: 500;
-}
-
-/* Theme toggle */
-.theme-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.25rem;
-  color: var(--text);
- }
 .nav-link {
   display: inline-flex;
   align-items: center;
@@ -47,4 +25,13 @@
   text-decoration: none;
   color: var(--nav-link);
   font-weight: 500;
+  padding: 0.25rem 0.5rem;    /* optional: clickable padding */
+}
+
+.theme-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;         /* slightly smaller icon */
+  color: var(--text);
 }

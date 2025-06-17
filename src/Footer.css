@@ -1,17 +1,14 @@
-/* src/Footer.css */
 .footer {
   background: var(--header-bg);
   color: var(--text);
   text-align: center;
-  padding: 1rem;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  z-index: 100;
+
+  /* slim bar */
+  padding: 0.4rem 0;    /* adjust this up/down to taste */
+  /* remove any height/font-size overrides */
 }
 
-/* avoid content being hidden under the footer */
 body {
-  padding-bottom: 4rem;
+  /* match the footer’s height so content doesn’t hide */
+  padding-bottom: 0.4rem;
 }
-    
